@@ -1,7 +1,13 @@
 const choices = document.querySelectorAll(".choice");
 const resultBox = document.querySelector("#result-box");
+const startButton = document.querySelector("#start");
+const playerScoreDisplay = document.querySelector("#player-score");
+const computerScoreDisplay = document.querySelector("#computer-score");
+const TotalScoreDisplay = document.querySelector("#total-score");
 let playerScore = 0,computerScore = 0;
 let totalScore = 0;
+
+startButton.onclick = playGame;
 
 function playComputer() {
     let rand = Math.floor(Math.random()*3)+1;
@@ -39,46 +45,52 @@ function playRound(player,computer) {
         else
             return "draw";
     }
-}   
-
-
-const startButton = document.querySelector("#start");
-startButton.onclick = playGame;
+}
 
 function playGame() {
+    playerScore = 0,computerScore = 0,totalScore = 0;
+    playerScoreDisplay.textContent = "Player Score: 0";
+    computerScoreDisplay.textContent = "CPU Score: 0";
+    TotalScoreDisplay.textContent = "Total Score: 0";
+    startButton.style.backgroundColor = "red";
+    startButton.textContent = "Restart?"
     choices.forEach((choice) => {
         choice.addEventListener('click',countGame);
     });
 }
 
-
 function countGame(e) {
+    console.log("count game");
     let result = playRound(e.target.id,playComputer())
     if (result == "player") {
         playerScore += 1;
+        playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
         totalScore += 1;
+        resultBox.textContent = "Player wins!";
     } 
     else if (result == "computer") {
         computerScore += 1;
+        computerScoreDisplay.textContent = `CPU Score: ${computerScore}`;
         totalScore += 1;
+        resultBox.textContent = "CPU wins!";
     }
-    resultBox.textContent = result;
+    else {
+        resultBox.textContent = "It's a DRAW!";
+    }
+    TotalScoreDisplay.textContent = `Total Score: ${totalScore}`;
 
-    if (totalScore >= 5) {
-        endGame()
+    if (playerScore >= 5 || computerScore >= 5) {
+        endGame();
     }
 }
 
 function endGame() {
-    console.log("end")
-    console.log(`player score: ${playerScore}`)
-    console.log(`computer score: ${computerScore}`)
+    startButton.style.backgroundColor = "green";
+    startButton.textContent = "Start Again?"
     choices.forEach((choice) => {
         choice.removeEventListener('click',countGame);
     });
 }
-//show playerscore and computerscore incrementing with each game.
-//add end game message, and the winner/draw message in resultBox
-//add message when game stats
-//(could set time out for resultBox messages - with fade-in/out)
+//change start button textContent to say restart?
+//make button red when game has started (use transition)
 //at the end css it 

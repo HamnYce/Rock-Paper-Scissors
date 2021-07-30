@@ -1,17 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+}
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
 }
-
-.button {
+#score-box {
+    display: flex;
+}
+.scores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+    width: 250px;
+    height: 60px;
+    margin:20px;
+    font-size: 16pt;
+    font-weight: bold;
 
 }
-
-#rock {
-
+.choice {
+    width:200px;
+    height:200px;
+    background-color: wheat;
+    font-size: x-large;
 }
-#paper {
-
+#result-box {
+    font-size: 16pt;
 }
-#scissors {
-
+#start {
+    width:200px;
+    height:40px;
 }
