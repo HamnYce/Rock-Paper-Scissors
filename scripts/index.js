@@ -1,3 +1,8 @@
+const choices = document.querySelectorAll(".choice");
+const resultBox = document.querySelector("#result-box");
+let playerScore = 0,computerScore = 0;
+let totalScore = 0;
+
 function playComputer() {
     let rand = Math.floor(Math.random()*3)+1;
     if (rand == 1) 
@@ -8,43 +13,72 @@ function playComputer() {
         return "scissors";
 }
 
-
 function playRound(player,computer) {
     player = player.toLowerCase();
     if (player == "rock") {
         if (computer  == "scissors")
-            return "Player wins, rock beats scissors!";
+            return "player";
         else if (computer == "paper")
-            return "Computer wins, paper beats rock!";
+            return "computer";
         else
-            return "It's a DRAW!";
+            return "draw";
     }
     else if (player == "paper") {
         if (computer == "rock")
-            return "Player wins, paper beats rock!";
+            return "player";
         else if (computer == "scissors")
-            return "Computer wins, scissors beats paper!";
+            return "computer";
         else 
-            return "It's a DRAW!"
+            return "draw";
     }
     else if (player == "scissors") {
         if (computer == "paper")
-            return "Player wins, scissors beats paper!";
+            return "player";
         else if (computer == "rock")
-            return  "Computer wins, rock beats scissors!";
+            return  "computer";
         else
-            return "It's a DRAW!";
+            return "draw";
     }
 }   
 
-function game() {
-    let userInput;
-    let computerInput;
-    for(let i = 0; i < 5; i++) {
-        console.log(`Round ${i}!`)
-        userInput = prompt("rock, paper or scissors! (with the s)")
-        computerInput = playComputer();
-        console.error(`The CPU has gone ${computerInput}!`)
-        console.warn(playRound(userInput,computerInput));
+
+const startButton = document.querySelector("#start");
+startButton.onclick = playGame;
+
+function playGame() {
+    choices.forEach((choice) => {
+        choice.addEventListener('click',countGame);
+    });
+}
+
+
+function countGame(e) {
+    let result = playRound(e.target.id,playComputer())
+    if (result == "player") {
+        playerScore += 1;
+        totalScore += 1;
+    } 
+    else if (result == "computer") {
+        computerScore += 1;
+        totalScore += 1;
+    }
+    resultBox.textContent = result;
+
+    if (totalScore >= 5) {
+        endGame()
     }
 }
+
+function endGame() {
+    console.log("end")
+    console.log(`player score: ${playerScore}`)
+    console.log(`computer score: ${computerScore}`)
+    choices.forEach((choice) => {
+        choice.removeEventListener('click',countGame);
+    });
+}
+//show playerscore and computerscore incrementing with each game.
+//add end game message, and the winner/draw message in resultBox
+//add message when game stats
+//(could set time out for resultBox messages - with fade-in/out)
+//at the end css it 
