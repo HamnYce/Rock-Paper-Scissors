@@ -91,6 +91,3 @@ function endGame() {
         choice.removeEventListener('click',countGame);
     });
 }
-//change start button textContent to say restart?
-//make button red when game has started (use transition)
-//at the end css it 
