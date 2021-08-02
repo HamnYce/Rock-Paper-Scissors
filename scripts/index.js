@@ -49,13 +49,20 @@ function playRound(player,computer) {
 
 function playGame() {
     playerScore = 0,computerScore = 0,totalScore = 0;
+    //CSS Resets:
+    //display
     playerScoreDisplay.textContent = "Player Score: 0";
     computerScoreDisplay.textContent = "CPU Score: 0";
     TotalScoreDisplay.textContent = "Total Score: 0";
+    //startbutton
     startButton.style.backgroundColor = "rgba(199, 33, 33, 1)";
     startButton.style.color = "white";
     startButton.textContent = "Restart?";
+    //resultBox
     resultBox.textContent = "Who will win?";
+    //add event listeners
+    //1) game counter + increnter
+    //2) click effect remover
     choices.forEach((choice) => {
         choice.addEventListener('click',countGame);
         choice.addEventListener('transitionend',(e) => {
@@ -85,6 +92,7 @@ function countGame(e) {
     else {
         resultBox.textContent = "It's a DRAW!";
     }
+
     TotalScoreDisplay.textContent = `Total Score: ${totalScore}`;
 
     if (playerScore >= 5 || computerScore >= 5) {
@@ -93,8 +101,10 @@ function countGame(e) {
 };
 
 function endGame() {
+    //startbutton reset
     startButton.style.backgroundColor = "green";
     startButton.textContent = "Start Again?";
+    //stop game
     choices.forEach((choice) => {
         choice.removeEventListener('click',countGame);
     });
