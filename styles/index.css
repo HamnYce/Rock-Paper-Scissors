@@ -9,6 +9,12 @@ body {
     justify-content: center;
     padding-top: 200px;
     padding-bottom: 50px;
+    background-color: #131313;
+    color: white;
+}
+a {
+    color: rgb(0, 138, 138);
+    text-decoration: none;
 }
 #score-box {
     display: flex;
@@ -17,29 +23,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border:1px solid black;
+    border:1px solid white;
     width: 250px;
     height: 60px;
     margin:20px;
     font-size: 16pt;
     font-weight: bold;
-
 }
 .choice {
     width:200px;
     height:200px;
-    background-color: wheat;
     font-size: x-large;
     border:0;
     box-shadow:0 0 7px 6px rgb(204, 204, 204);
     margin:20px;
     outline: none;
     cursor: pointer;
+    transition: all ease-in 0.04s;
+}
+.chosen {
+    scale: 1.1;
+    box-shadow: 0 0 7px 6px rgb(255, 254, 173);
 }
 #rock {
     background-image: url("../images/rock.png");
     background-size: cover;
-    background-color: blue;
 }
 #paper {
     background-image: url("../images/paper.webp");
@@ -55,6 +63,10 @@ body {
 #start {
     width:200px;
     height:40px;
+    outline: none;
+    border:0;
+    background-color: rgb(203, 202, 223);
+    cursor:pointer;
 }
 
 /* add background image (dark mode effect for most things

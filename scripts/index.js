@@ -17,7 +17,7 @@ function playComputer() {
         return "paper";
     else
         return "scissors";
-}
+};
 
 function playRound(player,computer) {
     player = player.toLowerCase();
@@ -45,34 +45,42 @@ function playRound(player,computer) {
         else
             return "draw";
     }
-}
+};
 
 function playGame() {
     playerScore = 0,computerScore = 0,totalScore = 0;
     playerScoreDisplay.textContent = "Player Score: 0";
     computerScoreDisplay.textContent = "CPU Score: 0";
     TotalScoreDisplay.textContent = "Total Score: 0";
-    startButton.style.backgroundColor = "red";
-    startButton.textContent = "Restart?"
+    startButton.style.backgroundColor = "rgba(199, 33, 33, 1)";
+    startButton.style.color = "white";
+    startButton.textContent = "Restart?";
+    resultBox.textContent = "Who will win?";
     choices.forEach((choice) => {
         choice.addEventListener('click',countGame);
+        choice.addEventListener('transitionend',(e) => {
+            e.target.classList.remove('chosen')
+        })
     });
-}
+};
 
 function countGame(e) {
     console.log("count game");
-    let result = playRound(e.target.id,playComputer())
+    let playerInput = e.target.id;
+    let computerInput = playComputer();
+    let result = playRound(playerInput,computerInput)
+    e.target.classList.add('chosen')
     if (result == "player") {
         playerScore += 1;
-        playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
         totalScore += 1;
-        resultBox.textContent = "Player wins!";
+        playerScoreDisplay.textContent  = `Player Score: ${playerScore}`;
+        resultBox.textContent = `Player's ${playerInput} beats Computer's ${computerInput}!`;
     } 
     else if (result == "computer") {
         computerScore += 1;
-        computerScoreDisplay.textContent = `CPU Score: ${computerScore}`;
         totalScore += 1;
-        resultBox.textContent = "CPU wins!";
+        computerScoreDisplay.textContent = `CPU Score: ${computerScore}`;
+        resultBox.textContent = `Computer's ${computerInput} beats Player's ${playerInput}!`;
     }
     else {
         resultBox.textContent = "It's a DRAW!";
@@ -82,12 +90,12 @@ function countGame(e) {
     if (playerScore >= 5 || computerScore >= 5) {
         endGame();
     }
-}
+};
 
 function endGame() {
     startButton.style.backgroundColor = "green";
-    startButton.textContent = "Start Again?"
+    startButton.textContent = "Start Again?";
     choices.forEach((choice) => {
         choice.removeEventListener('click',countGame);
     });
-}
+};
